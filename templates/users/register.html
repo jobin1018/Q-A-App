@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="signup-form">
+    <img src="/static/media/user_icon.png" alt="form-user-icon">
+    <h1>Join Now</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="wrapper">
+            {{form.username}}
+            {{form.email}}
+            {{form.password1}}
+            {{form.password2}}<br>
+        </div>
+        <button type="submit" class="signup-btn">Sign Up</button>
+        <small class="error-msg">{{form.errors.as_text }} </small>
+        <hr>
+        <p></p><small> Already have an account? </small><a href="{% url 'login' %}">Sign In</a></p>
+    </form>
+</div>
+{% endblock %}

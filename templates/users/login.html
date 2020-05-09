@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+{% if messages %}
+{% for message in messages %}
+<p class="created-msg">{{message}}</p>
+{% endfor %}
+{% endif %}
+<div class="signup-form">
+    <img src="/static/media/user_icon.png" alt="form-user-icon">
+    <h1>Login</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="wrapper">
+            {{form.field}}
+            {{form.username}}
+            {{form.password}}
+        </div>
+        <button type="submit" class="signup-btn">Sign In</button>
+        <small class="error-msg">{{form.errors.as_text }} </small>
+        <hr>
+        <p></p><small>Don't have an account? </small><a href="{% url 'register' %}">Sign Up</a></p>
+        <p></p><small>Forgot password? </small><a href="{% url 'reset_password' %}">Reset password</a></p>
+
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+<title>Q&A Web|Home</title>
+<div class="home-hero">
+    <div class="bg-img">
+
+    </div>
+    <div class="home-hero-content">
+        <div class="hero-left">
+            <h1>Askt it?{{answers.count}}</h1>
+            <p>Don't hesitate to ask when there are answers waiting for you!</p>
+        </div>
+        <div class="hero-right">
+            <div class="counter-wrapper">
+                <div class="counter" data-target="{{users_list.count}}">0</div>
+                <h3>Users</h3>
+            </div>
+            <div class="counter-wrapper">
+                <div class="counter" data-target="{{questions.count}}">0</div>
+                <h3>Questions</h3>
+            </div>
+            <div class="counter-wrapper">
+                <div class="counter" data-target="{{answers_list.count}}">0</div>
+                <h3>Answers</h3>
+            </div>
+        </div>
+    </div>
+    <div class="search-bar">
+        <form class="search-form" method="GET" action="{% url 'search' %}">
+            <input class="search-field" type="text" name="q" value="Search for questions.." />
+            <input class="search-btn" type="submit" value="Search" />
+        </form>
+    </div>
+</div>
+<div class="home-section">
+
+    {% for question in questions %}
+
+    <div id="question-box">
+        <div id="user-portion">
+            <div id="home-profile-img-wrapper">
+                <img src="{{ question.asker.profile.image.url }}" alt="profile-pic">
+            </div>
+            <p id="username">{{question.asker}}</p>
+            <p id="date">{{question.created_date}}</p>
+
+        </div>
+        <div class="question-block-right-section">
+            <a href="{% url 'questions-detail' question.id %}" id="question-title">
+                {{question.title}}
+            </a>
+            <div class="bottom-info-section">
+                <p>Answers : {{question.answers_set.count}}</p>
+                <p>Views : {{question.qst_views}}</p>
+            </div>
+
+        </div>
+    </div>
+
+    {% endfor %}
+    <script type="text/javascript">
+        const counters = document.querySelectorAll('.counter');
+        const speed = 8;
+
+        counters.forEach(counter => {
+            const updateCount = () => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+
+                const inc = target / speed;
+
+                console.log(inc);
+                console.log(count);
+
+                // Check if target is reached
+                if (count < target) {
+                    // Add inc to count and output in counter
+                    counter.innerText = count + inc;
+                    // Call function every ms
+                    setTimeout(updateCount, 70);
+                } else {
+                    counter.innerText = target;
+                }
+            };
+
+            updateCount();
+        });
+
+    </script>
+</div>
+
+{% endblock %}

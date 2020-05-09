@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="search-result-list">
+    {% if query %}
+    {% if results %}
+    <ul>
+        {% for item in results %}
+        <li> <a href="{% url 'questions-detail' item.id %}">{{ item|escape }}</a></li>
+
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No search results matching "{{query}}".</p>
+    {% endif %}
+    {% endif %}
+
+</div>
+
+{% endblock %}

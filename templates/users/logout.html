@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="logout-form">
+    <h2>Logged Out</h2>
+    <p>You have been logged out from the website.</p>
+    <a href="{% url 'login' %}">Login?</a>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="form-wrapper">
+    <h2>Create your question</h3>
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="form-title">
+                <p>Title</p>
+                {{form.title}}
+            </div>
+            <div class="form-content">
+                <p>Content</p>
+                {{form.content}}
+            </div>
+
+            <button class="form-btn" type="submit">Submit</button>
+        </form>
+        <div class='error'>{{form.errors}}</div>
+
+</div>
+
+{% endblock %}
